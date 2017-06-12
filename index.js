@@ -12,6 +12,10 @@ var exphbs = require('express-handlebars');
 
 mongoose.Promise = Promise;
 
+
+// app specific dependencies
+var controller = require("./controller");
+
 // initialize express app instance
 var app = express();
 app.server = http.createServer(app);
@@ -28,6 +32,10 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+
+// server index.html
+app.use("/", controller);
+
 
 app.server.listen(PORT, function() {
     console.log("App started on port " + PORT);
